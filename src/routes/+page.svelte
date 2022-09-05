@@ -5,9 +5,17 @@
 
 	let goals: Goals = ['', '', '', '', '', '', '', '', '', '', '', ''];
 	let selectedGoalIndex = 0;
+
+	let input: HTMLInputElement;
+
+	$: {
+		selectedGoalIndex; // Added as dependency, calls .focus when this changes
+		input?.focus();
+	}
 </script>
 
 <input
+	bind:this={input}
 	bind:value={goals[selectedGoalIndex]}
 	placeholder="Enter goal for {monthName(selectedGoalIndex)}"
 />
