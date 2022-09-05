@@ -14,19 +14,31 @@
 	}
 </script>
 
-<input
-	bind:this={input}
-	bind:value={goals[selectedGoalIndex]}
-	placeholder="Enter goal for {monthName(selectedGoalIndex)}"
-/>
+<section>
+	<div class="input-container">
+		<input
+			bind:this={input}
+			bind:value={goals[selectedGoalIndex]}
+			placeholder="Enter goal for {monthName(selectedGoalIndex)}"
+		/>
+	</div>
 
-<Calendar {goals} bind:selectedGoalIndex />
+	<Calendar {goals} bind:selectedGoalIndex />
+</section>
 
 <style>
-	input {
-		display: block;
-		margin: auto;
+	section {
+		padding: 1rem;
+	}
 
-		margin-bottom: 2rem;
+	.input-container {
+		display: flex;
+		justify-content: center;
+		margin: auto;
+	}
+
+	input {
+		font-size: 1.5rem;
+		padding: 0.25em;
 	}
 </style>

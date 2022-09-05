@@ -38,47 +38,60 @@
 	}
 </script>
 
-<ol>
-	{#each goals as goal, index}
-		<li>
-			<h2>{monthName(index)}</h2>
-			<button
-				draggable="true"
-				class:dragover={index === dragoverIndex}
-				class:selected={index === selectedGoalIndex}
-				on:dragstart={() => (draggingIndex = index)}
-				on:dragenter={() => (dragoverIndex = index)}
-				on:dragover={(event) => {
-					// To allow dropping
-					event.preventDefault();
-				}}
-				on:dragleave={() => (dragoverIndex = undefined)}
-				on:dragend={() => {
-					draggingIndex = undefined;
-					dragoverIndex = undefined;
-				}}
-				on:drop={handleDrop}
-				on:click={() => (selectedGoalIndex = index)}
-			>
-				{goal}
-			</button>
-		</li>
-	{/each}
-</ol>
+<div class="months-wrapper">
+	<ol>
+		{#each goals as goal, index}
+			<li>
+				<h2>{monthName(index)}</h2>
+				<button
+					class="goal"
+					draggable="true"
+					class:dragover={index === dragoverIndex}
+					class:selected={index === selectedGoalIndex}
+					on:dragstart={() => (draggingIndex = index)}
+					on:dragenter={() => (dragoverIndex = index)}
+					on:dragover={(event) => {
+						// To allow dropping
+						event.preventDefault();
+					}}
+					on:dragleave={() => (dragoverIndex = undefined)}
+					on:dragend={() => {
+						draggingIndex = undefined;
+						dragoverIndex = undefined;
+					}}
+					on:drop={handleDrop}
+					on:click={() => (selectedGoalIndex = index)}
+				>
+					{goal}
+				</button>
+			</li>
+		{/each}
+	</ol>
+</div>
 
 <style>
-	ol {
-		padding: 0;
-		list-style: none;
-		position: relative;
+	.months-wrapper {
+		--month-diameter: 8rem;
+		--month-radius: calc(var(--month-diameter) / 2);
+		/* To counter li positioning */
+		padding: 2em var(--month-radius) var(--month-diameter) var(--month-radius);
+
 		width: 40rem;
 		height: 40rem;
 		margin: auto;
 	}
 
+	ol {
+		padding: 0;
+		list-style: none;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
 	li {
 		position: absolute;
-		margin-left: -4rem;
+		margin-left: calc(var(--month-radius) * -1);
 		text-align: center;
 	}
 
@@ -153,25 +166,27 @@
 		margin: 0;
 	}
 
-	button {
+	.goal {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		border-radius: 50%;
-		width: 8rem;
-		height: 8rem;
+		width: var(--month-diameter);
+		height: var(--month-diameter);
 		text-align: center;
-		border: 2px solid black;
+		border: 2px solid #ccc;
 		cursor: pointer;
 		background-color: white;
 		font-size: inherit;
+		box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	.dragover {
-		background-color: red;
+		background-color: #eee;
 	}
 
 	.selected {
-		border: 3px solid blue;
+		border: 3px solid rgb(120, 195, 251);
+		box-shadow: 0px 3px 8px rgba(120, 195, 251, 0.2);
 	}
 </style>
