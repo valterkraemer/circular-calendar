@@ -1,7 +1,24 @@
+<script lang="ts" context="module">
+	export type Goals = [
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string
+	];
+</script>
+
 <script lang="ts">
 	import { monthName } from '$lib/months';
 
-	export let goals: string[];
+	export let goals: Goals;
 	export let selectedGoalIndex: number;
 
 	let draggingIndex: number | undefined;

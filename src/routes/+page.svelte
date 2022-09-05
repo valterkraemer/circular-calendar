@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { monthName } from '$lib/months';
 
-	import Calendar from '../components/Calendar.svelte';
+	import Calendar, { type Goals } from '../components/Calendar.svelte';
 
-	let goals = ['', '', '', '', '', '', '', '', '', '', '', ''];
+	let goals: Goals = ['', '', '', '', '', '', '', '', '', '', '', ''];
 	let selectedGoalIndex = 0;
 </script>
 
