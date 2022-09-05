@@ -1,21 +1,8 @@
 <script lang="ts">
+	import { monthName } from '$lib/months';
+
 	export let goals: string[];
 	export let selectedGoalIndex: number;
-
-	const months = [
-		'Jan',
-		'Feb',
-		'Mar',
-		'Apr',
-		'May',
-		'Jun',
-		'Jul',
-		'Aug',
-		'Sep',
-		'Oct',
-		'Nov',
-		'Dec'
-	];
 
 	let draggingIndex: number | undefined;
 	let dragoverIndex: number | undefined;
@@ -37,7 +24,7 @@
 <ol>
 	{#each goals as goal, index}
 		<li>
-			<h2>{months[index]}</h2>
+			<h2>{monthName(index)}</h2>
 			<button
 				draggable="true"
 				class:dragover={index === dragoverIndex}
