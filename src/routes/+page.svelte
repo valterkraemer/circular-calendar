@@ -1,30 +1,36 @@
 <script lang="ts">
-	import { monthName } from '$lib/months';
-
-	import Calendar, { type Goals } from '../components/Calendar.svelte';
-
-	let goals: Goals = ['', '', '', '', '', '', '', '', '', '', '', ''];
-	let selectedGoalIndex = 0;
+	import { combined } from '../stores/combined';
+	import { goals } from '../stores/goals';
+	import { months } from '$lib/months';
+	import { positions } from '../stores/positions';
+	import { selected } from '../stores/selected';
+	import Calendar from '../components/Calendar.svelte';
 
 	let input: HTMLInputElement;
 
-	$: {
-		selectedGoalIndex; // Added as dependency, calls .focus when this changes
-		input?.focus();
-	}
+	// selected is a store of a store
+	$: goal = $selected;
+
+	$: selectedMonth = months[$positions[goals.indexOf(goal)]];
+
+	// calls .focus when goal changes
+	$: goal && input?.focus();
 </script>
 
 <section>
 	<div class="input-container">
-		<input
-			bind:this={input}
-			bind:value={goals[selectedGoalIndex]}
-			placeholder="Enter goal for {monthName(selectedGoalIndex)}"
-		/>
+		<input bind:this={input} bind:value={$goal} placeholder="Enter goal for {selectedMonth}" />
 	</div>
 
-	<Calendar {goals} bind:selectedGoalIndex />
+	<Calendar />
 </section>
+
+<details>
+	<summary>Show data</summary>
+	<pre>
+{JSON.stringify($combined, null, 2)}
+	</pre>
+</details>
 
 <style>
 	section {
